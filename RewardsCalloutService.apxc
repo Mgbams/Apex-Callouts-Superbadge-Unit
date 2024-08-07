@@ -1,0 +1,25 @@
+public class RewardsCalloutService{
+
+    public static Integer submitUsersForRewardCallout(String jsonBody) {
+        //Set Endpoint from Named Credential
+        string endPoint = 'callout:IntegrationSB__BalancedLiving/rewards';
+        HttpRequest request = new HttpRequest();
+        request.setMethod('POST');
+        request.setEndpoint(endPoint);
+        request.setBody(jsonBody);
+        
+        //Make HTTP Callout
+        Integer statusCode;
+        Http http = new Http();
+        HttpResponse response = new HttpResponse();
+        try {
+           response = http.send(request);
+           statusCode = response.getStatusCode();
+        } catch(Exception ex) {
+            System.debug('Error: ' + ex.getMessage());
+        }
+        
+        //Update to return response status code
+        return statusCode;    
+    }
+}

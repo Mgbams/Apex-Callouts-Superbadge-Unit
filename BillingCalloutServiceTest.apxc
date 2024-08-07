@@ -1,0 +1,20 @@
+@isTest
+public class BillingCalloutServiceTest {
+    @isTest static void callBillingServiceTest() {
+        Workshop__c wkShop = new Workshop__c();
+        wkShop.Name = 'Test workshop and Mock';
+        wkShop.Capacity__c = 20;
+        wkShop.Date__c = Date.today();
+        wkShop.Description__c = 'Superbadge test';
+        wkShop.DHH_Accessible__c = true;
+        wkShop.Facilitator__c = 'Kingsley Mgbams';
+        
+        Test.startTest();
+        Test.setMock(WebServiceMock.class, new BillingCalloutServiceMock());
+        insert wkShop;
+        Test.stopTest();
+        List<Accessibility_Project__c> ap = [SELECT Status__c FROM Accessibility_Project__c];
+        Accessibility_Project__c createdAccessProj = ap.get(0);
+        Assert.areEqual('Complete', createdAccessProj.Status__c, 'The status is supposed to be Complete');
+    }
+}

@@ -1,0 +1,10 @@
+@isTest
+public class RewardsCalloutServiceMock implements HttpCalloutMock {
+    public HttpResponse respond(HttpRequest request) {
+        HttpResponse res = new HttpResponse();
+        res.setHeader('Content-Type', 'application/json');
+        res.setBody('{"status":"created"}');
+        res.setStatusCode(201);
+        return res;
+    }
+}
